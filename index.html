@@ -1761,146 +1761,6 @@ footer a:hover{
 }
 
 /* =========================
-   ORDER BUMP MODAL
-========================= */
-
-.order-bump-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    z-index:3000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    opacity:0;
-    visibility:hidden;
-    transition:all .3s ease;
-}
-
-.order-bump-modal.open{
-    opacity:1;
-    visibility:visible;
-}
-
-.order-bump-box{
-    width:min(500px,95%);
-    max-height:90vh;
-    overflow:auto;
-    background:white;
-    border-radius:24px;
-    padding:30px;
-    text-align:center;
-    transform:scale(.95);
-    transition:transform .3s ease;
-}
-
-.order-bump-modal.open .order-bump-box{
-    transform:scale(1);
-}
-
-.order-bump-box .bump-icon{
-    font-size:3.5rem;
-    margin-bottom:10px;
-}
-
-.order-bump-box .bump-badge{
-    display:inline-block;
-    background:var(--primary);
-    color:white;
-    padding:4px 16px;
-    border-radius:100px;
-    font-size:.7rem;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:12px;
-}
-
-.order-bump-box h2{
-    color:var(--dark);
-    font-size:1.5rem;
-    margin-bottom:8px;
-}
-
-.order-bump-box .bump-desc{
-    color:#777;
-    font-size:.95rem;
-    margin-bottom:6px;
-}
-
-.order-bump-box .bump-price{
-    font-size:2rem;
-    font-weight:900;
-    color:var(--primary);
-    margin-bottom:6px;
-}
-
-.order-bump-box .bump-price .antes{
-    font-size:1.2rem;
-    text-decoration:line-through;
-    color:#999;
-    font-weight:400;
-    margin-right:10px;
-}
-
-.order-bump-box .bump-savings{
-    color:#2e7d32;
-    font-weight:700;
-    font-size:.9rem;
-    margin-bottom:20px;
-}
-
-.bump-actions{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.bump-btn-primary{
-    border:0;
-    background:var(--primary);
-    color:white;
-    padding:14px;
-    border-radius:12px;
-    font-weight:900;
-    font-size:1rem;
-    transition:background .2s;
-}
-
-.bump-btn-primary:hover{
-    background:var(--primary-dark);
-}
-
-.bump-btn-secondary{
-    border:0;
-    background:#f5f5f5;
-    color:var(--dark);
-    padding:12px;
-    border-radius:12px;
-    font-weight:700;
-    font-size:.9rem;
-    transition:background .2s;
-}
-
-.bump-btn-secondary:hover{
-    background:#e8e8e8;
-}
-
-.bump-skip{
-    border:0;
-    background:none;
-    color:#999;
-    font-size:.8rem;
-    padding:8px;
-    text-decoration:underline;
-}
-
-.bump-skip:hover{
-    color:var(--primary);
-}
-
-/* =========================
    THANK YOU MODAL
 ========================= */
 
@@ -2510,18 +2370,6 @@ footer a:hover{
         font-size:.7rem;
         flex-wrap:wrap;
         justify-content:center;
-    }
-
-    .order-bump-box{
-        padding:20px;
-    }
-
-    .order-bump-box h2{
-        font-size:1.2rem;
-    }
-
-    .order-bump-box .bump-price{
-        font-size:1.6rem;
     }
 
     .thankyou-box{
@@ -3386,34 +3234,6 @@ footer a:hover{
 </div>
 
 
-<!-- ORDER BUMP MODAL -->
-<div class="order-bump-modal" id="orderBumpModal">
-    <div class="order-bump-box">
-        <div class="bump-icon" id="bumpIcon">🎁</div>
-        <div class="bump-badge" id="bumpBadge">🔥 OFERTA ESPECIAL</div>
-        <h2 id="bumpTitle">¡Aprovechá esta promo!</h2>
-        <p class="bump-desc" id="bumpDesc">Agregá <strong>Milanesas de pollo (1 kg)</strong> a tu pedido por solo:</p>
-        <div class="bump-price" id="bumpPrice">
-            <span class="antes" id="bumpAntes">$9.000</span>
-            <span id="bumpAhora">$7.000</span>
-        </div>
-        <div class="bump-savings" id="bumpSavings">💸 Ahorrá $2.000</div>
-
-        <div class="bump-actions">
-            <button class="bump-btn-primary" id="bumpAddBtn" onclick="addBumpToCart()">
-                🛒 Agregar al pedido
-            </button>
-            <button class="bump-btn-secondary" onclick="closeBumpAndContinue()">
-                No, gracias
-            </button>
-            <button class="bump-skip" onclick="closeBumpAndContinue()">
-                Omitir oferta
-            </button>
-        </div>
-    </div>
-</div>
-
-
 <!-- ORDER MODAL -->
 <div class="modal" id="orderModal">
 
@@ -4116,86 +3936,11 @@ function closeCart(){
 
 
 /* =========================================
-   ORDER BUMP ROTATIVO
+   ABRIR MODAL DE PEDIDO (sin order bump)
 ========================================= */
-
-// Lista de productos para el order bump (excluyendo el producto 10 que es el que se ofrece)
-const bumpProducts = [
-    { id: 1, name: "Sorrentinos con masa al huevo", price: 9000, offerPrice: 7000, icon: "🥟", savings: 2000 },
-    { id: 2, name: "Fideos al huevo", price: 5500, offerPrice: 4000, icon: "🍝", savings: 1500 },
-    { id: 4, name: "Sorrentinos con masa de remolacha", price: 9000, offerPrice: 7000, icon: "🥟", savings: 2000 },
-    { id: 6, name: "Albóndigas de pollo (1 kg)", price: 9000, offerPrice: 7000, icon: "🍗", savings: 2000 },
-    { id: 8, name: "Arrollado de pollo (~1 kg)", price: 13000, offerPrice: 10000, icon: "🍗", savings: 3000 },
-    { id: 9, name: "Alfajores de maicena", price: 3000, offerPrice: 2000, icon: "🍬", savings: 1000 },
-    { id: 11, name: "Empanadas (docena)", price: 15000, offerPrice: 12000, icon: "🥟", savings: 3000 }
-];
-
-let bumpIndex = 0;
-let bumpAdded = false;
-
-function getNextBump() {
-    // Obtener el siguiente producto de la lista rotativa
-    const bump = bumpProducts[bumpIndex % bumpProducts.length];
-    bumpIndex++;
-    return bump;
-}
 
 function openOrderModal(){
     if(Object.keys(cart).length === 0) return;
-
-    // Verificar si el producto bump ya está en el carrito
-    const currentBump = getNextBump();
-    
-    // Si el producto ya está en el carrito o ya se mostró, ir directo al modal
-    if(cart[currentBump.id] || bumpAdded){
-        showOrderModal();
-        return;
-    }
-
-    // Configurar el order bump con el producto actual
-    setupBump(currentBump);
-    
-    // Mostrar Order Bump
-    document.getElementById('orderBumpModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-function setupBump(bump) {
-    document.getElementById('bumpIcon').textContent = bump.icon;
-    document.getElementById('bumpBadge').textContent = '🔥 OFERTA ESPECIAL';
-    document.getElementById('bumpTitle').textContent = '¡Aprovechá esta promo!';
-    document.getElementById('bumpDesc').innerHTML = `Agregá <strong>${bump.name}</strong> a tu pedido por solo:`;
-    document.getElementById('bumpAntes').textContent = formatPrice(bump.price);
-    document.getElementById('bumpAhora').textContent = formatPrice(bump.offerPrice);
-    document.getElementById('bumpSavings').textContent = `💸 Ahorrá ${formatPrice(bump.savings)}`;
-    
-    // Guardar el ID del bump actual para agregarlo después
-    document.getElementById('bumpAddBtn').dataset.bumpId = bump.id;
-    document.getElementById('bumpAddBtn').dataset.bumpPrice = bump.offerPrice;
-}
-
-function addBumpToCart(){
-    const bumpId = parseInt(document.getElementById('bumpAddBtn').dataset.bumpId);
-    const bumpPrice = parseInt(document.getElementById('bumpAddBtn').dataset.bumpPrice);
-    
-    // Agregar el producto bump
-    if(!cart[bumpId]){
-        cart[bumpId] = 1;
-    }else{
-        cart[bumpId]++;
-    }
-    bumpAdded = true;
-    updateCart();
-    closeBumpAndContinue();
-}
-
-function closeBumpAndContinue(){
-    document.getElementById('orderBumpModal').classList.remove('open');
-    document.body.style.overflow = '';
-    showOrderModal();
-}
-
-function showOrderModal(){
     updateModalSummary();
     document.getElementById('orderModal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -4355,7 +4100,6 @@ function sendOrder(){
 
     // Vaciar el carrito
     cart = {};
-    bumpAdded = false;
     updateCart();
 
     // Mostrar modal de agradecimiento
@@ -4417,10 +4161,6 @@ document.getElementById("cartOverlay").addEventListener("click", function(e){
 
 document.getElementById("orderModal").addEventListener("click", function(e){
     if(e.target === this) closeOrderModal();
-});
-
-document.getElementById("orderBumpModal").addEventListener("click", function(e){
-    if(e.target === this) closeBumpAndContinue();
 });
 
 document.getElementById("thankyouModal").addEventListener("click", function(e){
