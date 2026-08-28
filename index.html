@@ -780,7 +780,6 @@ section{
     pointer-events:none;
 }
 
-/* Flechas del slider de producto */
 .slider-btn{
     position:absolute;
     top:50%;
@@ -813,7 +812,6 @@ section{
     right:8px;
 }
 
-/* Indicadores de imágenes */
 .img-dots{
     position:absolute;
     bottom:8px;
@@ -1622,35 +1620,51 @@ footer a:hover{
     font-size:.8rem;
 }
 
-.quantity{
+.quantity-controls{
     display:flex;
     align-items:center;
     gap:6px;
     margin-top:5px;
 }
 
-.quantity button{
-    width:22px;
-    height:22px;
+.quantity-controls button{
+    width:26px;
+    height:26px;
     border:1px solid #ddd;
     background:white;
     border-radius:6px;
     font-size:.9rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .2s;
 }
 
-.quantity span{
-    min-width:18px;
+.quantity-controls button:hover{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+.quantity-controls span{
+    min-width:24px;
     text-align:center;
     font-weight:800;
-    font-size:.9rem;
+    font-size:.95rem;
 }
 
 .remove{
     border:0;
     background:none;
     color:#aaa;
-    font-size:.75rem;
+    font-size:.7rem;
     margin-top:3px;
+    text-decoration:underline;
+}
+
+.remove:hover{
+    color:var(--primary);
 }
 
 .cart-footer{
@@ -1734,11 +1748,230 @@ footer a:hover{
     border-radius:12px;
     font-weight:900;
     font-size:.95rem;
+    transition:background .2s;
+}
+
+.checkout-btn:hover:not(:disabled){
+    background:#1da85a;
 }
 
 .checkout-btn:disabled{
     background:#ccc;
     cursor:not-allowed;
+}
+
+/* =========================
+   ORDER BUMP MODAL
+========================= */
+
+.order-bump-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:3000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:all .3s ease;
+}
+
+.order-bump-modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.order-bump-box{
+    width:min(500px,95%);
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:24px;
+    padding:30px;
+    text-align:center;
+    transform:scale(.95);
+    transition:transform .3s ease;
+}
+
+.order-bump-modal.open .order-bump-box{
+    transform:scale(1);
+}
+
+.order-bump-box .bump-icon{
+    font-size:3.5rem;
+    margin-bottom:10px;
+}
+
+.order-bump-box .bump-badge{
+    display:inline-block;
+    background:var(--primary);
+    color:white;
+    padding:4px 16px;
+    border-radius:100px;
+    font-size:.7rem;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:12px;
+}
+
+.order-bump-box h2{
+    color:var(--dark);
+    font-size:1.5rem;
+    margin-bottom:8px;
+}
+
+.order-bump-box .bump-desc{
+    color:#777;
+    font-size:.95rem;
+    margin-bottom:6px;
+}
+
+.order-bump-box .bump-price{
+    font-size:2rem;
+    font-weight:900;
+    color:var(--primary);
+    margin-bottom:6px;
+}
+
+.order-bump-box .bump-price .antes{
+    font-size:1.2rem;
+    text-decoration:line-through;
+    color:#999;
+    font-weight:400;
+    margin-right:10px;
+}
+
+.order-bump-box .bump-savings{
+    color:#2e7d32;
+    font-weight:700;
+    font-size:.9rem;
+    margin-bottom:20px;
+}
+
+.bump-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.bump-btn-primary{
+    border:0;
+    background:var(--primary);
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-weight:900;
+    font-size:1rem;
+    transition:background .2s;
+}
+
+.bump-btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.bump-btn-secondary{
+    border:0;
+    background:#f5f5f5;
+    color:var(--dark);
+    padding:12px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:.9rem;
+    transition:background .2s;
+}
+
+.bump-btn-secondary:hover{
+    background:#e8e8e8;
+}
+
+.bump-skip{
+    border:0;
+    background:none;
+    color:#999;
+    font-size:.8rem;
+    padding:8px;
+    text-decoration:underline;
+}
+
+.bump-skip:hover{
+    color:var(--primary);
+}
+
+/* =========================
+   THANK YOU MODAL
+========================= */
+
+.thankyou-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:4000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:all .3s ease;
+}
+
+.thankyou-modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.thankyou-box{
+    width:min(420px,90%);
+    background:white;
+    border-radius:24px;
+    padding:35px 30px;
+    text-align:center;
+    transform:scale(.95);
+    transition:transform .3s ease;
+}
+
+.thankyou-modal.open .thankyou-box{
+    transform:scale(1);
+}
+
+.thankyou-box .thank-icon{
+    font-size:4rem;
+    margin-bottom:8px;
+    animation:thankPop 0.5s ease-out;
+}
+
+@keyframes thankPop{
+    0%{transform:scale(0) rotate(-10deg);}
+    60%{transform:scale(1.2) rotate(3deg);}
+    100%{transform:scale(1) rotate(0);}
+}
+
+.thankyou-box h2{
+    color:var(--dark);
+    font-size:1.6rem;
+    margin-bottom:4px;
+}
+
+.thankyou-box p{
+    color:#777;
+    font-size:.95rem;
+}
+
+.thankyou-box .thank-message{
+    background:var(--cream);
+    border-radius:12px;
+    padding:14px;
+    margin:12px 0 0;
+    color:var(--text);
+    font-size:.9rem;
+    line-height:1.5;
+}
+
+.thankyou-box .thank-message strong{
+    color:var(--primary);
 }
 
 /* =========================
@@ -2278,6 +2511,31 @@ footer a:hover{
         flex-wrap:wrap;
         justify-content:center;
     }
+
+    .order-bump-box{
+        padding:20px;
+    }
+
+    .order-bump-box h2{
+        font-size:1.2rem;
+    }
+
+    .order-bump-box .bump-price{
+        font-size:1.6rem;
+    }
+
+    .thankyou-box{
+        padding:25px 18px;
+    }
+
+    .thankyou-box h2{
+        font-size:1.2rem;
+    }
+
+    .thankyou-box .thank-message{
+        font-size:.8rem;
+        padding:10px;
+    }
 }
 
 @media(max-width:400px){
@@ -2316,9 +2574,9 @@ footer a:hover{
         </a>
 
         <nav class="nav-links">
+            <a href="#como-funciona">Cómo pedir</a>
             <a href="#productos">Productos</a>
             <a href="#ofertas">Ofertas</a>
-            <a href="#como-funciona">Cómo pedir</a>
             <a href="#zonas">Zonas</a>
             <a href="#negocios" class="highlight-link">🏪 Negocios</a>
         </nav>
@@ -2340,9 +2598,9 @@ footer a:hover{
 
     <div class="mobile-menu" id="mobileMenu">
         <div class="container" style="display:flex;flex-direction:column;gap:2px;">
+            <a href="#como-funciona">📋 Cómo pedir</a>
             <a href="#productos">🍕 Productos</a>
             <a href="#ofertas">🔥 Ofertas</a>
-            <a href="#como-funciona">📋 Cómo pedir</a>
             <a href="#zonas">📍 Zonas de entrega</a>
             <a href="#negocios" class="highlight-link">🏪 Ventas a negocios</a>
             <a href="#" class="cart-mobile" onclick="openCart();return false;">🛒 Mi pedido</a>
@@ -2399,6 +2657,46 @@ footer a:hover{
             <a href="#negocios" class="btn btn-outline">
                 🏪 Negocios
             </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CÓMO PEDIR - AHORA ARRIBA DE PRODUCTOS -->
+<section class="how" id="como-funciona">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div class="eyebrow">Así de fácil</div>
+            <h2>Hacé tu pedido en minutos</h2>
+            <p>No necesitás registrarte ni completar formularios eternos.</p>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Elegí</h3>
+                <p>Seleccioná los productos que querés y agregalos a tu pedido.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Revisá</h3>
+                <p>Abri tu carrito, revisá cantidades y confirmá el total.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Mandanos tu pedido</h3>
+                <p>Tocá enviar y el pedido se abrirá automáticamente en WhatsApp.</p>
+            </div>
 
         </div>
 
@@ -2818,46 +3116,6 @@ footer a:hover{
 </div>
 
 
-<!-- CÓMO PEDIR -->
-<section class="how" id="como-funciona">
-
-    <div class="container">
-
-        <div class="section-head">
-
-            <div class="eyebrow">Así de fácil</div>
-            <h2>Hacé tu pedido en minutos</h2>
-            <p>No necesitás registrarte ni completar formularios eternos.</p>
-
-        </div>
-
-        <div class="steps">
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Elegí</h3>
-                <p>Seleccioná los productos que querés y agregalos a tu pedido.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Revisá</h3>
-                <p>Abri tu carrito, revisá cantidades y confirmá el total.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Mandanos tu pedido</h3>
-                <p>Tocá enviar y el pedido se abrirá automáticamente en WhatsApp.</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
 <!-- ZONAS DE ENTREGA -->
 <section class="delivery-zones" id="zonas">
 
@@ -3040,9 +3298,9 @@ footer a:hover{
 
             <div>
                 <h3>Secciones</h3>
+                <a href="#como-funciona">Cómo pedir</a>
                 <a href="#productos">Productos</a>
                 <a href="#ofertas">Ofertas</a>
-                <a href="#como-funciona">Cómo pedir</a>
                 <a href="#zonas">Zonas de entrega</a>
                 <a href="#negocios">🏪 Negocios</a>
             </div>
@@ -3081,7 +3339,7 @@ footer a:hover{
 </a>
 
 
-<!-- CART -->
+<!-- CART OVERLAY -->
 <div class="overlay" id="cartOverlay">
 
     <div class="cart-panel">
@@ -3125,6 +3383,34 @@ footer a:hover{
 
     </div>
 
+</div>
+
+
+<!-- ORDER BUMP MODAL -->
+<div class="order-bump-modal" id="orderBumpModal">
+    <div class="order-bump-box">
+        <div class="bump-icon" id="bumpIcon">🎁</div>
+        <div class="bump-badge" id="bumpBadge">🔥 OFERTA ESPECIAL</div>
+        <h2 id="bumpTitle">¡Aprovechá esta promo!</h2>
+        <p class="bump-desc" id="bumpDesc">Agregá <strong>Milanesas de pollo (1 kg)</strong> a tu pedido por solo:</p>
+        <div class="bump-price" id="bumpPrice">
+            <span class="antes" id="bumpAntes">$9.000</span>
+            <span id="bumpAhora">$7.000</span>
+        </div>
+        <div class="bump-savings" id="bumpSavings">💸 Ahorrá $2.000</div>
+
+        <div class="bump-actions">
+            <button class="bump-btn-primary" id="bumpAddBtn" onclick="addBumpToCart()">
+                🛒 Agregar al pedido
+            </button>
+            <button class="bump-btn-secondary" onclick="closeBumpAndContinue()">
+                No, gracias
+            </button>
+            <button class="bump-skip" onclick="closeBumpAndContinue()">
+                Omitir oferta
+            </button>
+        </div>
+    </div>
 </div>
 
 
@@ -3189,10 +3475,24 @@ footer a:hover{
             </div>
         </div>
 
-        <button class="send-order" onclick="sendOrder()">💬 Enviar pedido por WhatsApp</button>
+        <button class="send-order" id="sendOrderBtn" onclick="sendOrder()">💬 Enviar pedido por WhatsApp</button>
 
     </div>
 
+</div>
+
+
+<!-- THANK YOU MODAL -->
+<div class="thankyou-modal" id="thankyouModal">
+    <div class="thankyou-box">
+        <div class="thank-icon">🎉</div>
+        <h2>¡Gracias por tu compra!</h2>
+        <p>Tu pedido fue enviado correctamente.</p>
+        <div class="thank-message">
+            <strong>🙏 ¡Gracias por elegir Sabores Caseros!</strong><br>
+            Nos encanta que elijas lo casero. En breve nos estaremos comunicando con vos para coordinar la entrega. ❤️
+        </div>
+    </div>
 </div>
 
 
@@ -3669,7 +3969,7 @@ function addToCart(id){
     openCart();
 }
 
-function decrease(id){
+function decreaseQuantity(id){
     if(!cart[id]) return;
     cart[id]--;
     if(cart[id] <= 0){
@@ -3678,7 +3978,7 @@ function decrease(id){
     updateCart();
 }
 
-function increase(id){
+function increaseQuantity(id){
     if(!cart[id]){
         cart[id] = 1;
     }else{
@@ -3748,10 +4048,10 @@ function updateCart(){
             <div>
                 <h4>${product.name}</h4>
                 <div class="cart-item-price">${formatPrice(subtotal)}</div>
-                <div class="quantity">
-                    <button onclick="decrease(${id})">−</button>
+                <div class="quantity-controls">
+                    <button onclick="decreaseQuantity(${id})">−</button>
                     <span>${quantity}</span>
-                    <button onclick="increase(${id})">+</button>
+                    <button onclick="increaseQuantity(${id})">+</button>
                 </div>
                 <button class="remove" onclick="removeFromCart(${id})">Eliminar</button>
             </div>
@@ -3806,25 +4106,104 @@ function formatPrice(value){
 
 function openCart(){
     document.getElementById("cartOverlay").classList.add("open");
+    document.body.style.overflow = 'hidden';
 }
 
 function closeCart(){
     document.getElementById("cartOverlay").classList.remove("open");
+    document.body.style.overflow = '';
 }
 
 
 /* =========================================
-   MODAL PEDIDO
+   ORDER BUMP ROTATIVO
 ========================================= */
+
+// Lista de productos para el order bump (excluyendo el producto 10 que es el que se ofrece)
+const bumpProducts = [
+    { id: 1, name: "Sorrentinos con masa al huevo", price: 9000, offerPrice: 7000, icon: "🥟", savings: 2000 },
+    { id: 2, name: "Fideos al huevo", price: 5500, offerPrice: 4000, icon: "🍝", savings: 1500 },
+    { id: 4, name: "Sorrentinos con masa de remolacha", price: 9000, offerPrice: 7000, icon: "🥟", savings: 2000 },
+    { id: 6, name: "Albóndigas de pollo (1 kg)", price: 9000, offerPrice: 7000, icon: "🍗", savings: 2000 },
+    { id: 8, name: "Arrollado de pollo (~1 kg)", price: 13000, offerPrice: 10000, icon: "🍗", savings: 3000 },
+    { id: 9, name: "Alfajores de maicena", price: 3000, offerPrice: 2000, icon: "🍬", savings: 1000 },
+    { id: 11, name: "Empanadas (docena)", price: 15000, offerPrice: 12000, icon: "🥟", savings: 3000 }
+];
+
+let bumpIndex = 0;
+let bumpAdded = false;
+
+function getNextBump() {
+    // Obtener el siguiente producto de la lista rotativa
+    const bump = bumpProducts[bumpIndex % bumpProducts.length];
+    bumpIndex++;
+    return bump;
+}
 
 function openOrderModal(){
     if(Object.keys(cart).length === 0) return;
+
+    // Verificar si el producto bump ya está en el carrito
+    const currentBump = getNextBump();
+    
+    // Si el producto ya está en el carrito o ya se mostró, ir directo al modal
+    if(cart[currentBump.id] || bumpAdded){
+        showOrderModal();
+        return;
+    }
+
+    // Configurar el order bump con el producto actual
+    setupBump(currentBump);
+    
+    // Mostrar Order Bump
+    document.getElementById('orderBumpModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function setupBump(bump) {
+    document.getElementById('bumpIcon').textContent = bump.icon;
+    document.getElementById('bumpBadge').textContent = '🔥 OFERTA ESPECIAL';
+    document.getElementById('bumpTitle').textContent = '¡Aprovechá esta promo!';
+    document.getElementById('bumpDesc').innerHTML = `Agregá <strong>${bump.name}</strong> a tu pedido por solo:`;
+    document.getElementById('bumpAntes').textContent = formatPrice(bump.price);
+    document.getElementById('bumpAhora').textContent = formatPrice(bump.offerPrice);
+    document.getElementById('bumpSavings').textContent = `💸 Ahorrá ${formatPrice(bump.savings)}`;
+    
+    // Guardar el ID del bump actual para agregarlo después
+    document.getElementById('bumpAddBtn').dataset.bumpId = bump.id;
+    document.getElementById('bumpAddBtn').dataset.bumpPrice = bump.offerPrice;
+}
+
+function addBumpToCart(){
+    const bumpId = parseInt(document.getElementById('bumpAddBtn').dataset.bumpId);
+    const bumpPrice = parseInt(document.getElementById('bumpAddBtn').dataset.bumpPrice);
+    
+    // Agregar el producto bump
+    if(!cart[bumpId]){
+        cart[bumpId] = 1;
+    }else{
+        cart[bumpId]++;
+    }
+    bumpAdded = true;
+    updateCart();
+    closeBumpAndContinue();
+}
+
+function closeBumpAndContinue(){
+    document.getElementById('orderBumpModal').classList.remove('open');
+    document.body.style.overflow = '';
+    showOrderModal();
+}
+
+function showOrderModal(){
     updateModalSummary();
-    document.getElementById("orderModal").classList.add("open");
+    document.getElementById('orderModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeOrderModal(){
-    document.getElementById("orderModal").classList.remove("open");
+    document.getElementById('orderModal').classList.remove('open');
+    document.body.style.overflow = '';
 }
 
 function updateModalSummary(){
@@ -3874,12 +4253,16 @@ function updateModalSummary(){
 
 
 /* =========================================
-   ENVIAR PEDIDO WHATSAPP (CORREGIDO Y CON MEJOR FORMATO)
+   ENVIAR PEDIDO WHATSAPP
 ========================================= */
 
 const WHATSAPP_NUMBER = "5491131566089";
+let orderSent = false;
 
 function sendOrder(){
+
+    if(orderSent) return;
+    orderSent = true;
 
     const name = document.getElementById("customerName").value.trim();
     const phone = document.getElementById("customerPhone").value.trim();
@@ -3890,34 +4273,40 @@ function sendOrder(){
 
     if(!name){
         alert("Por favor ingresá tu nombre.");
+        orderSent = false;
         return;
     }
 
     if(!phone){
         alert("Por favor ingresá tu teléfono.");
+        orderSent = false;
         return;
     }
 
     if(method === "Envío" && !address){
         alert("Por favor ingresá la dirección.");
+        orderSent = false;
         return;
     }
 
-    // =========================================
-    // CALCULAR TOTAL PRIMERO
-    // =========================================
+    // Deshabilitar el botón para evitar doble envío
+    const sendBtn = document.getElementById('sendOrderBtn');
+    sendBtn.disabled = true;
+    sendBtn.textContent = '⏳ Enviando...';
+
+    // Cerrar el modal de pedido
+    closeOrderModal();
+
+    // Calcular total
     let total = 0;
     Object.keys(cart).forEach(id => {
         total += products[id].price * cart[id];
     });
 
-    // =========================================
-    // ARMAR MENSAJE CON MEJOR FORMATO Y SEPARACIÓN
-    // =========================================
+    // Armar mensaje
     let message = "🍕 *NUEVO PEDIDO - SABORES CASEROS*%0A";
     message += "━━━━━━━━━━━━━━━━━━━━━%0A%0A";
 
-    // --- DATOS DEL CLIENTE ---
     message += "👤 *Cliente:* " + encodeURIComponent(name) + "%0A";
     message += "📱 *Teléfono:* " + encodeURIComponent(phone) + "%0A";
 
@@ -3936,7 +4325,6 @@ function sendOrder(){
 
     message += "💳 *Pago:* Transferencia o efectivo al momento de la entrega%0A";
 
-    // --- ENVÍO ---
     if (total >= FREE_SHIPPING_THRESHOLD) {
         message += "🚚 *Envío:* ¡GRATIS! (supera los $30.000)%0A";
     } else {
@@ -3945,8 +4333,6 @@ function sendOrder(){
     }
 
     message += "%0A━━━━━━━━━━━━━━━━━━━━━%0A";
-
-    // --- PEDIDO ---
     message += "🛒 *PEDIDO*%0A";
     message += "─────────────────%0A";
 
@@ -3967,8 +4353,31 @@ function sendOrder(){
     message += "%0A━━━━━━━━━━━━━━━━━━━━━%0A";
     message += "¡Hola! Quiero realizar este pedido 😊";
 
-    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
-    window.open(url, "_blank");
+    // Vaciar el carrito
+    cart = {};
+    bumpAdded = false;
+    updateCart();
+
+    // Mostrar modal de agradecimiento
+    document.getElementById('thankyouModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Esperar 3 segundos, luego abrir WhatsApp y cerrar el modal
+    setTimeout(function() {
+        // Abrir WhatsApp
+        const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
+        window.open(url, "_blank");
+
+        // Cerrar modal de agradecimiento
+        document.getElementById('thankyouModal').classList.remove('open');
+        document.body.style.overflow = '';
+        closeCart();
+
+        // Restaurar botón
+        sendBtn.disabled = false;
+        sendBtn.textContent = '💬 Enviar pedido por WhatsApp';
+        orderSent = false;
+    }, 3000);
 
 }
 
@@ -4008,6 +4417,16 @@ document.getElementById("cartOverlay").addEventListener("click", function(e){
 
 document.getElementById("orderModal").addEventListener("click", function(e){
     if(e.target === this) closeOrderModal();
+});
+
+document.getElementById("orderBumpModal").addEventListener("click", function(e){
+    if(e.target === this) closeBumpAndContinue();
+});
+
+document.getElementById("thankyouModal").addEventListener("click", function(e){
+    if(e.target === this) {
+        // Si el usuario hace clic fuera, no hacer nada, se cierra automáticamente
+    }
 });
 
 
