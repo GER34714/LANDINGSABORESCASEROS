@@ -3874,7 +3874,7 @@ function updateModalSummary(){
 
 
 /* =========================================
-   ENVIAR PEDIDO WHATSAPP
+   ENVIAR PEDIDO WHATSAPP (CORREGIDO Y CON MEJOR FORMATO)
 ========================================= */
 
 const WHATSAPP_NUMBER = "5491131566089";
@@ -3903,9 +3903,21 @@ function sendOrder(){
         return;
     }
 
+    // =========================================
+    // CALCULAR TOTAL PRIMERO
+    // =========================================
     let total = 0;
-    let message = "🍕 *NUEVO PEDIDO - SABORES CASEROS*%0A%0A";
+    Object.keys(cart).forEach(id => {
+        total += products[id].price * cart[id];
+    });
 
+    // =========================================
+    // ARMAR MENSAJE CON MEJOR FORMATO Y SEPARACIÓN
+    // =========================================
+    let message = "🍕 *NUEVO PEDIDO - SABORES CASEROS*%0A";
+    message += "━━━━━━━━━━━━━━━━━━━━━%0A%0A";
+
+    // --- DATOS DEL CLIENTE ---
     message += "👤 *Cliente:* " + encodeURIComponent(name) + "%0A";
     message += "📱 *Teléfono:* " + encodeURIComponent(phone) + "%0A";
 
@@ -3917,40 +3929,43 @@ function sendOrder(){
     }
 
     if (coordinar) {
-        message += "📅 *Coordinar entrega:* Sí - Quiero coordinar día y horario de entrega (Lunes a Sábado 9-18hs)%0A";
+        message += "📅 *Coordinar entrega:* Sí (Lunes a Sábado 9-18hs)%0A";
     } else {
-        message += "📅 *Coordinar entrega:* No - Entrega estándar%0A";
+        message += "📅 *Coordinar entrega:* No%0A";
     }
 
     message += "💳 *Pago:* Transferencia o efectivo al momento de la entrega%0A";
 
-    // Envío gratis
+    // --- ENVÍO ---
     if (total >= FREE_SHIPPING_THRESHOLD) {
         message += "🚚 *Envío:* ¡GRATIS! (supera los $30.000)%0A";
     } else {
-        message += "🚚 *Envío:* A consultar (no supera los $30.000)%0A";
+        const faltante = FREE_SHIPPING_THRESHOLD - total;
+        message += "🚚 *Envío:* A consultar (faltan " + encodeURIComponent(formatPrice(faltante)) + " para envío gratis)%0A";
     }
 
-    message += "%0A🛒 *PEDIDO:*%0A";
+    message += "%0A━━━━━━━━━━━━━━━━━━━━━%0A";
+
+    // --- PEDIDO ---
+    message += "🛒 *PEDIDO*%0A";
+    message += "─────────────────%0A";
 
     Object.keys(cart).forEach(id => {
-
         const product = products[id];
         const quantity = cart[id];
         const subtotal = product.price * quantity;
-        total += subtotal;
-
-        message += "• " + encodeURIComponent(product.name) + " x" + quantity + " — " + encodeURIComponent(formatPrice(subtotal)) + "%0A";
-
+        message += "• " + encodeURIComponent(product.name) + "  ×" + quantity + "  →  " + encodeURIComponent(formatPrice(subtotal)) + "%0A";
     });
 
-    message += "%0A💰 *TOTAL: " + encodeURIComponent(formatPrice(total)) + "*%0A";
+    message += "─────────────────%0A";
+    message += "💰 *TOTAL:* " + encodeURIComponent(formatPrice(total)) + "%0A";
 
     if(comment){
         message += "%0A📝 *Comentario:* " + encodeURIComponent(comment) + "%0A";
     }
 
-    message += "%0A¡Hola! Quiero realizar este pedido 😊";
+    message += "%0A━━━━━━━━━━━━━━━━━━━━━%0A";
+    message += "¡Hola! Quiero realizar este pedido 😊";
 
     const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
     window.open(url, "_blank");
