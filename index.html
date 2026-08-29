@@ -2930,6 +2930,35 @@ footer a:hover{
                 </div>
             </article>
 
+            <!-- Producto 12: Tartas individuales -->
+            <article class="product-card" data-category="otros" data-product-id="12">
+                <div class="product-image" onclick="openImageModal(12)">
+                    <span class="product-tag">🔥 Promo especial</span>
+                    <div class="slider-container" id="slider-12">
+                        <img src="https://iili.io/CpZvT9s.jpg" alt="Tarta individual 1">
+                        <img src="https://iili.io/CpZvzSn.jpg" alt="Tarta individual 2">
+                    </div>
+                    <button class="slider-btn prev-img" onclick="event.stopPropagation();slideProduct(12, -1)">‹</button>
+                    <button class="slider-btn next-img" onclick="event.stopPropagation();slideProduct(12, 1)">›</button>
+                    <div class="img-dots" id="dots-12">
+                        <span class="active" onclick="event.stopPropagation();goToImage(12, 0)"></span>
+                        <span onclick="event.stopPropagation();goToImage(12, 1)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>🥧 TARTAS INDIVIDUALES</h3>
+                    <p>Con mucho relleno y súper caseras 😋🥧<br>
+                        • Zapallito verde: cebolla, morrón rojo y queso<br>
+                        • Espinaca: cebolla, morrón rojo y queso<br>
+                        • Pollo: cebolla caramelizada y queso roquefort/cremoso<br>
+                        • Calabaza y queso: suave y deliciosa</p>
+                    <div class="product-bottom">
+                        <span class="price">$4.500 <small>c/u</small></span>
+                        <button class="add-btn" onclick="addToCart(12)">+ Agregar</button>
+                    </div>
+                </div>
+            </article>
+
         </div>
 
     </div>
@@ -3522,6 +3551,13 @@ const productData = {
         tag: "❄️ Freezadas",
         desc: "Riquísimas empanadas caseras para disfrutar cuando quieras 😋\n🥟 Pollo\n🥟 Carne\n🥟 Jamón y queso\n📦 Presentación: 1 docena\n❄️ Producto frizado",
         images: ["https://iili.io/CmzHkfR.png"]
+    },
+    12: {
+        name: "🥧 TARTAS INDIVIDUALES",
+        price: 4500,
+        tag: "🔥 Promo especial",
+        desc: "Con mucho relleno y súper caseras 😋🥧\n• Zapallito verde: cebolla, morrón rojo y queso\n• Espinaca: cebolla, morrón rojo y queso\n• Pollo: cebolla caramelizada y queso roquefort/cremoso\n• Calabaza y queso: suave y deliciosa\n📦 Precio: $4.500 cada una",
+        images: ["https://iili.io/CpZvT9s.jpg", "https://iili.io/CpZvzSn.jpg"]
     }
 };
 
@@ -3709,7 +3745,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* =========================================
-   PRODUCTOS (11 productos)
+   PRODUCTOS (12 productos)
 ========================================= */
 
 const products = {
@@ -3768,6 +3804,11 @@ const products = {
         name:"🥟 Empanadas (docena)",
         price:15000,
         image:"https://iili.io/CmzHkfR.png"
+    },
+    12:{
+        name:"🥧 Tartas individuales (c/u)",
+        price:4500,
+        image:"https://iili.io/CpZvT9s.jpg"
     }
 
 };
